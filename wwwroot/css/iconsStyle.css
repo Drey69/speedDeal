@@ -1,0 +1,10 @@
+﻿.icon1
+{
+    fill: #bb2649;
+    cursor: pointer;
+
+}
+.icon1:hover
+{
+    fill: green;
+}

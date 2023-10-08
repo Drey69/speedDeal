@@ -1,0 +1,112 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="icon1" viewBox="0 0 16 16">
+        <path d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z"/>
+        <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
+    </svg>
+</div>
+
+<style>
+    .header
+    {
+        height: 15%;
+        width: 100%;
+        cursor: grab;
+        user-select: none;
+        background-color: #bc9c9c;
+       
+        border-radius: 9px 9px 0 0;
+    }
+    .header:active:hover
+     {
+         cursor: grabbing;
+     }
+ 
+ 
+    .unit
+    {
+        border: 1px solid gray;
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        top: 200px;
+        left: 200px;
+        z-index: 900;
+        cursor: pointer;
+        user-select: none;
+        background-color: #e9e7e1;
+        border-radius: 10px;
+    }
+    .body
+    {
+        height: 75%;
+        width: 100%;
+    }
+</style>
+<div>
+    @ViewBag.Message
+</div>
+<div>
+    <a href="/login"> login here</a>
+</div>
+<div id="win-1" class="unit">
+    <div class="header">
+        заголовок
+    </div>
+    <div class="body">
+        таскай за заголовок
+    </div>
+</div>
+
+<script defer>
+    let mouseIsDown = false;
+    let element = 'undefined';
+    let lastX = 0;
+    let lastY = 0;
+    $(document).ready(function(){
+
+        $(".header").mousedown(function(event){
+            mouseIsDown = true;
+            console.log("mouse down");
+            element = $(this).parent().attr('id');
+
+        });
+
+        $(document).mouseup(function(event){
+            mouseIsDown = false;
+            element = 'undefined'
+            console.log("mouse up");
+            lastX = 0;
+            lastY = 0;
+        });
+        
+        $(document).mousedown(function (event){
+            lastX = event.clientX;
+            lastY = event.clientY;
+        });
+         
+        $(document).mousemove(function(event){
+            if (element === 'undefined')
+                return;
+    
+            let mouseX = event.clientX;
+            let mouseY = event.clientY;
+       
+            let window = $(`#${element}`);
+            let win = window.offset();
+            let winX = win.left;
+            let winY = win.top;
+            
+            winX = winX + mouseX - lastX;
+            winY = winY + mouseY - lastY;
+            lastY = mouseY;
+            lastX = mouseX;
+            window.css('left',winX);
+            window.css('top', winY);
+            
+        });
+
+    });
+</script>
