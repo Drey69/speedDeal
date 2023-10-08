@@ -25,9 +25,13 @@ namespace SpeedDeal
             builder.Services.AddSingleton(dbContext);
 
             
-            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            builder.Services
+                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => options.LoginPath = "/login");
-            builder.Services.AddAuthorization();
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy => policy.RequireClaim("Admins"));
+            });
 
             var app = builder.Build();
 
@@ -39,16 +43,11 @@ namespace SpeedDeal
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
-            
-            
-            
-            
-
             app.UseRouting();
-
             
             app.UseAuthentication();
             app.UseAuthorization();
+            
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");

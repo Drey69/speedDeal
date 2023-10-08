@@ -4,6 +4,8 @@ using SpeedDeal.DbModels;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Win32.SafeHandles;
 
 namespace SpeedDeal.Controllers
 {
@@ -26,10 +28,26 @@ namespace SpeedDeal.Controllers
         {
             var user = HttpContext.User;
            
+            if (null != user)  
+            {  
+                var dbUser = _dbContext.Users.Include(g=>g.Group).FirstOrDefault(u => u.Name == user.Identity.Name);
+                Console.WriteLine(dbUser.Password);
+                
+                foreach (Claim claim in user.Claims)  
+                {  
+                    Console.WriteLine("CLAIM TYPE: " + claim.Type + "; CLAIM VALUE: " + claim.Value + "</br>");  
+                }  
+
+            }  
 
             return View();
         }
 
+        [Authorize(Policy = "AdminOnly")]
+        public string amdin()
+        {
+            return "ok";
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
