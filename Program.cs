@@ -46,6 +46,9 @@ namespace SpeedDeal
             }
             app.UseStaticFiles();
             
+            
+            
+            
 
             app.UseRouting();
 
