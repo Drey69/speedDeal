@@ -25,9 +25,10 @@ public class LoginController : Controller
     [HttpPost]
     public async Task<IActionResult> Login(string? returnUrl, string name, string password)
     {
-        var user = _dbContext.Users.FirstOrDefault(u=>u.Password == password);
+        var user = _dbContext.Users.FirstOrDefault(u=>u.Name == name);
         if(user == null) return RedirectToAction("UserNotFound");
-
+        if (user.Password != password) return RedirectToAction("WrongPassword");
+        
         var claims = new List<Claim> { new Claim(ClaimTypes.Name , user.Name) };
         claims.Add(new Claim(ClaimTypes.Role, "admin"));
         ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
@@ -46,8 +47,14 @@ public class LoginController : Controller
     }
 
     [AllowAnonymous]
-    public string UserNotFound( string message)
+    public string UserNotFound()
     {
-        return $"error: {message} .";
+        return $"Не правильное имя пользователя .";
+    }
+
+    [AllowAnonymous]
+    public string WrongPassword()
+    {
+        return $"Не правильный пароль.";
     }
 }

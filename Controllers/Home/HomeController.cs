@@ -3,6 +3,7 @@ using SpeedDeal.Models;
 using SpeedDeal.DbModels;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace SpeedDeal.Controllers
 {
@@ -12,28 +13,19 @@ namespace SpeedDeal.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration _configuration;
         private AppDbContext _dbContext;
-
         public HomeController(ILogger<HomeController> logger,
                  AppDbContext context, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
             _dbContext = context;
-
         }
 
        
         public IActionResult Index()
         {
-            var user = HttpContext.User.Identity;
-            if (user is not null && user.IsAuthenticated)
-            {
-               ViewBag.Message = $"Пользователь аутентифицирован. Тип аутентификации: {user.AuthenticationType}";
-            }
-            else
-            {
-                 ViewBag.Message = "Пользователь НЕ аутентифицирован";
-            }
+            var user = HttpContext.User;
+           
 
             return View();
         }

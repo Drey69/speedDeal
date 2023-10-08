@@ -17,14 +17,8 @@ namespace SpeedDeal
          .AddJsonFile("appsettings.json")
          .AddEnvironmentVariables()
          .Build();
-
-
-                
-                    
-                    
-                    
-            // Add services to the container.
              
+
 
             builder.Configuration.AddJsonFile("appsettings.json");
             builder.Services.AddSingleton(config);
@@ -59,8 +53,6 @@ namespace SpeedDeal
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            app.Map("/test", [Authorize]() => $"Hello World!");
-            app.Map("/", () => "Home Page");
             
             app.Run();
         }
