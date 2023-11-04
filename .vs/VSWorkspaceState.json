@@ -11,6 +11,5 @@
     "\\Views\\Home",
     "\\Views\\Login"
   ],
-  "SelectedNode": "\\Controllers\\Login\\LoginController.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -24,10 +24,10 @@ namespace SpeedDeal.Controllers
         }
 
        
-        public IActionResult Index()
+        public IActionResult Index(bool? rrr)
         {
             var user = HttpContext.User;
-           
+            ViewBag.test = rrr;
             if (null != user)  
             {  
                 var dbUser = _dbContext.Users.Include(g=>g.Group).FirstOrDefault(u => u.Name == user.Identity.Name);
