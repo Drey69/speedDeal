@@ -17,12 +17,32 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "W:\\yandex\\coding_Proj\\SpeedDeal\\wwwroot\\js\\qwery.js",
-      "PackagePath": "staticwebassets\\js\\qwery.js"
+      "Id": "W:\\yandex\\coding_Proj\\SpeedDeal\\wwwroot\\js\\frameworks\\qwery.js",
+      "PackagePath": "staticwebassets\\js\\frameworks\\qwery.js"
+    },
+    {
+      "Id": "W:\\yandex\\coding_Proj\\SpeedDeal\\wwwroot\\js\\frameworks\\vue.js",
+      "PackagePath": "staticwebassets\\js\\frameworks\\vue.js"
+    },
+    {
+      "Id": "W:\\yandex\\coding_Proj\\SpeedDeal\\wwwroot\\js\\item.js",
+      "PackagePath": "staticwebassets\\js\\item.js"
+    },
+    {
+      "Id": "W:\\yandex\\coding_Proj\\SpeedDeal\\wwwroot\\js\\main.js",
+      "PackagePath": "staticwebassets\\js\\main.js"
+    },
+    {
+      "Id": "W:\\yandex\\coding_Proj\\SpeedDeal\\wwwroot\\js\\modal-window.js",
+      "PackagePath": "staticwebassets\\js\\modal-window.js"
     },
     {
       "Id": "W:\\yandex\\coding_Proj\\SpeedDeal\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "W:\\yandex\\coding_Proj\\SpeedDeal\\wwwroot\\js\\test.vue",
+      "PackagePath": "staticwebassets\\js\\test.vue"
     },
     {
       "Id": "W:\\yandex\\coding_Proj\\SpeedDeal\\wwwroot\\lib\\bootstrap\\LICENSE",

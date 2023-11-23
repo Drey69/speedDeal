@@ -23,6 +23,12 @@ namespace SpeedDeal.Controllers
             _dbContext = context;
         }
 
+        public IActionResult GetVue()
+        {
+            var filepath = "/js/test.vue";
+            return File(filepath, "text/plain", "test.vue");
+        }
+
        
         public IActionResult Index(bool? rrr)
         {
@@ -41,6 +47,12 @@ namespace SpeedDeal.Controllers
             }  
 
             return View();
+        }
+
+        public IActionResult AddLink(string description, string linkstr)
+        {
+            System.Console.WriteLine(description);
+            System.Console.WriteLine(linkstr);
         }
 
         [Authorize(Policy = "AdminOnly")]

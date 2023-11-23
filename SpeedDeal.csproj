@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="VueApps\app.vue" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.11" />
   </ItemGroup>
 
@@ -75,6 +79,10 @@
     <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.js" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.map" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\LICENSE.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+
   </ItemGroup>
 
   <ItemGroup>

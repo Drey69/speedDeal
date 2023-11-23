@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace SpeedDeal
@@ -14,15 +15,21 @@ namespace SpeedDeal
             builder.Services.AddControllersWithViews();
             var dbContext = new AppDbContext();
             IConfiguration config = new ConfigurationBuilder()
-         .AddJsonFile("appsettings.json")
-         .AddEnvironmentVariables()
-         .Build();
+                .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables()
+                .Build();
              
 
 
             builder.Configuration.AddJsonFile("appsettings.json");
             builder.Services.AddSingleton(config);
-            builder.Services.AddSingleton(dbContext);
+
+            // builder.Services.AddDbContextPool<AppDbContext>((dbContextConfig) =>
+            //     {
+            //         dbContextConfig.UseSqlite("Data Source=helloapp.db");
+            //     });
+            
+             builder.Services.AddSingleton(dbContext);
 
             
             builder.Services
