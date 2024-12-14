@@ -5,12 +5,11 @@ namespace SpeedDeal.DbModels;
 public class User
 {
     public int Id { get; set; }
-    public string Name { get; set; }
-    public string Email { get; set; }
-    public string Password { get; set; }
-    
-    [ForeignKey("Group")]
-    public int GroupId {get; set;}
-    virtual public Group Group { get; set; }
-    public byte[] Salt {get; set;}
+    public string Name { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string Password { get; set; } = "";
+    public int RoleId {get; set;}    
+    public byte[] Salt {get; set;} = new byte[0] ;
+
+    public Role Role { get; set; } = new Role();
 }

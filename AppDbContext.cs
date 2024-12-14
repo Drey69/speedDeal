@@ -6,11 +6,11 @@ namespace SpeedDeal
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<TestModel> Test { get; set; }
         public DbSet<DealLink> Links { get; set; } 
         public DbSet<User> Users { get; set; }
         public DbSet<Messages> Messages { get; set; }
-        public DbSet<Group> Groups { set; get; }
+        public DbSet<Role> Roles { set; get; }
+        public DbSet<Permission> Permisions { set; get; }
 
         public AppDbContext()
         {

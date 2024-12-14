@@ -9,7 +9,7 @@ using Microsoft.Win32.SafeHandles;
 
 namespace SpeedDeal.Controllers
 {
-    [Authorize]
+   // [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -30,21 +30,9 @@ namespace SpeedDeal.Controllers
         }
 
        
-        public IActionResult Index(bool? rrr)
+        public IActionResult Index()
         {
-            var user = HttpContext.User;
-            ViewBag.test = rrr;
-            if (null != user)  
-            {  
-                var dbUser = _dbContext.Users.Include(g=>g.Group).FirstOrDefault(u => u.Name == user.Identity.Name);
-                Console.WriteLine(dbUser.Password);
-                
-                foreach (Claim claim in user.Claims)  
-                {  
-                    Console.WriteLine("CLAIM TYPE: " + claim.Type + "; CLAIM VALUE: " + claim.Value + "</br>");  
-                }  
 
-            }  
 
             return View();
         }

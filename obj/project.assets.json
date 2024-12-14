@@ -3203,11 +3203,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/lomaster/Документы/code/SpeedDeal/SpeedDeal.csproj",
+      "projectUniqueName": "/home/lomaster/Документы/code/speedDeal/SpeedDeal.csproj",
       "projectName": "SpeedDeal",
-      "projectPath": "/home/lomaster/Документы/code/SpeedDeal/SpeedDeal.csproj",
+      "projectPath": "/home/lomaster/Документы/code/speedDeal/SpeedDeal.csproj",
       "packagesPath": "/home/lomaster/.nuget/packages/",
-      "outputPath": "/home/lomaster/Документы/code/SpeedDeal/obj/",
+      "outputPath": "/home/lomaster/Документы/code/speedDeal/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/lomaster/.nuget/NuGet/NuGet.Config"
