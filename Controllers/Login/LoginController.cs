@@ -34,11 +34,11 @@ public class LoginController : Controller
         if(user == null) return RedirectToAction("UserNotFound");
         if (user.Password != password) return RedirectToAction("WrongPassword");
 
-        var hash = Hasher.CreateHash(user.Password);
-        Console.Write(hash);
-        Console.WriteLine( Hasher.ValidatePassword(user.Password,Console.ReadLine()));
-        
-        var claims = new List<Claim> { new Claim(ClaimTypes.Name , user.Name) };
+        var hash = HashPasword(password, out var salt);
+        var claims = new List<Claim> 
+        {
+            new Claim(ClaimTypes.Name , user.Name) 
+        };
         claims.Add(new Claim(user.Group.Name, "admin"));
         ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,

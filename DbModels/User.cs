@@ -12,4 +12,5 @@ public class User
     [ForeignKey("Group")]
     public int GroupId {get; set;}
     virtual public Group Group { get; set; }
+    public byte[] Salt {get; set;}
 }

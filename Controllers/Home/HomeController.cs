@@ -49,11 +49,7 @@ namespace SpeedDeal.Controllers
             return View();
         }
 
-        public IActionResult AddLink(string description, string linkstr)
-        {
-            System.Console.WriteLine(description);
-            System.Console.WriteLine(linkstr);
-        }
+
 
         [Authorize(Policy = "AdminOnly")]
         public string amdin()

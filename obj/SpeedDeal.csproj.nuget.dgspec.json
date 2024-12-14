@@ -1,38 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "W:\\yandex\\coding_Proj\\SpeedDeal\\SpeedDeal.csproj": {}
+    "/home/lomaster/Документы/code/SpeedDeal/SpeedDeal.csproj": {}
   },
   "projects": {
-    "W:\\yandex\\coding_Proj\\SpeedDeal\\SpeedDeal.csproj": {
+    "/home/lomaster/Документы/code/SpeedDeal/SpeedDeal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "W:\\yandex\\coding_Proj\\SpeedDeal\\SpeedDeal.csproj",
+        "projectUniqueName": "/home/lomaster/Документы/code/SpeedDeal/SpeedDeal.csproj",
         "projectName": "SpeedDeal",
-        "projectPath": "W:\\yandex\\coding_Proj\\SpeedDeal\\SpeedDeal.csproj",
-        "packagesPath": "C:\\Users\\Dron\\.nuget\\packages\\",
-        "outputPath": "W:\\yandex\\coding_Proj\\SpeedDeal\\obj\\",
+        "projectPath": "/home/lomaster/Документы/code/SpeedDeal/SpeedDeal.csproj",
+        "packagesPath": "/home/lomaster/.nuget/packages/",
+        "outputPath": "/home/lomaster/Документы/code/SpeedDeal/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Dron\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/lomaster/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
-          "C:\\Users\\Dron\\Documents\\code\\LibTest\\library\\bin\\Release": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -40,15 +32,26 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[7.0.11, )"
+              "version": "[9.0.0, )"
             }
           },
           "imports": [
@@ -70,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.404/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
