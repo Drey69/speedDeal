@@ -38,8 +38,7 @@ namespace SpeedDeal.Controllers
         }
 
 
-
-        [Authorize(Policy = "AdminOnly")]
+        [Authorize(Roles = "admin")]
         public string amdin()
         {
             return "ok";

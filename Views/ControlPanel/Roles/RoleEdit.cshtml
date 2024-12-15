@@ -1,0 +1,25 @@
+﻿@model SpeedDeal.DbModels.Role
+@{
+    Layout = "_Layout";
+}
+
+
+<div class="body-div">
+    <div class="goto-main-page">
+        <a href="/ControlPanel/Roles"> Настройки ролей </a>
+        <br />
+    </div>
+    <br />
+    <br />
+    <div class="eidt-role">
+        <form action="RoleEdit" method="post">
+            <input type="hidden" name="roleId" value="@Model.Id" />
+            <input type="text" name="roleName" id="roleName" value="@Model.Name" placeholder="Имя роли" />
+            <br />
+            <br />
+            <button type="submit">Сохранить</button>
+        </form>
+    </div>
+
+
+</div>

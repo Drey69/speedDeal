@@ -1,0 +1,29 @@
+﻿@model List<SpeedDeal.DbModels.Role>
+
+@{
+    Layout = "_Layout";
+}
+
+
+<div class="body-div">
+    <div class="goto-main-page">
+        <a href="/ControlPanel"> Настройки </a>
+        <br />
+    </div>
+    <h2> Роли </h2>
+    <div>
+        <a href="/ControlPanel/RoleCreate">Создать новую </a>
+    </div>
+
+    <br />
+    <br />
+    @foreach (var role in Model)
+    {
+        <div>
+            <a href="/ControlPanel/RoleEdit?roleId=@role.Id">@role.Name </a>
+        </div>
+
+        <br />
+    }
+
+</div>

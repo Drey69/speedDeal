@@ -7,16 +7,18 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using SpeedDeal.Infrastructure;
+using System.Runtime.InteropServices;
+using System;
 
 
 namespace SpeedDeal.Controllers.Login;
 
 public class LoginController : Controller
 {
-    AppDbContext _dbContext;
+    AppDbContext _context;
     public LoginController(AppDbContext dbContext)
     {
-        _dbContext = dbContext;
+        _context = dbContext;
     }
     // GET
     [AllowAnonymous]
@@ -30,21 +32,26 @@ public class LoginController : Controller
     [HttpPost]
     public async Task<IActionResult> Login(string? returnUrl, string name, string password)
     {
-        var user = _dbContext.Users.Include(g=>g.Group).FirstOrDefault(u=>u.Name == name);
-        if(user == null) return RedirectToAction("UserNotFound");
-        if (user.Password != password) return RedirectToAction("WrongPassword");
-
-        var hash = HashPasword(password, out var salt);
-        var claims = new List<Claim> 
+        var user = _context.Users.Include(u => u.Role).FirstOrDefault(u => u.Name == name);
+        if(user == null)
         {
-            new Claim(ClaimTypes.Name , user.Name) 
-        };
-        claims.Add(new Claim(user.Group.Name, "admin"));
-        ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
-        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                            new ClaimsPrincipal(claimsIdentity)); 
-        
-        return RedirectToAction("Index","Home");
+            RedirectToAction("UserNotFound", "Login");
+        }
+
+        if(Hasher.IsPaswordOk(password, user.Password, user.Salt))
+        {
+            var claims = new List<Claim>
+            {
+            new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name),
+            new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name)
+    };
+            var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+            await HttpContext.SignInAsync(claimsPrincipal);
+            return RedirectToAction("index", "Home");
+        }
+     
+        return RedirectToAction("Login", "Login");
     }
 
     [Authorize]
@@ -58,24 +65,15 @@ public class LoginController : Controller
     [AllowAnonymous]
     public string UserNotFound()
     {
-        return $"Не правильное имя пользователя .";
+        return $"Не правильное имя пользователя или пароль .";
     }
 
     [AllowAnonymous]
     public string WrongPassword()
     {
-        return $"Не правильный пароль.";
+        return $"Не правильное имя пользователя или пароль .";
     }
-    
-    string HashPasword(string password, out byte[] salt)
-    {
-        salt = RandomNumberGenerator.GetBytes(64);
-        var hash = Rfc2898DeriveBytes.Pbkdf2(
-            Encoding.UTF8.GetBytes(password),
-            salt,
-            350000,
-            HashAlgorithmName.SHA512,
-            64);
-        return Convert.ToHexString(hash);
-    }
+
+
+
 }

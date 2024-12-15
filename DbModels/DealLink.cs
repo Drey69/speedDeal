@@ -1,8 +1,4 @@
 
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Security.Cryptography.X509Certificates;
-
 namespace SpeedDeal.DbModels
 {
     public class DealLink

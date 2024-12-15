@@ -9,8 +9,7 @@ namespace SpeedDeal
         public DbSet<DealLink> Links { get; set; } 
         public DbSet<User> Users { get; set; }
         public DbSet<Messages> Messages { get; set; }
-        public DbSet<Role> Roles { set; get; }
-        public DbSet<Permission> Permisions { set; get; }
+        public DbSet<Role> Roles { get; set; }
 
         public AppDbContext()
         {
