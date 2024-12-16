@@ -1,0 +1,42 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<style>
+    .login
+    {
+        position: absolute;
+        left: calc(50% - 85px);
+        top: 35%;
+        height: 140px;
+        width: 170px;
+        border: 2px solid darkblue;
+        border-radius: 10px;
+        padding: 10px;    
+    }
+</style>
+<html>
+<head>
+    <title>Войти</title>
+</head>
+<body>
+<div class="login">
+    <div style="position: relative">
+        <form action="/Login/Login" method="post">
+            <label> Login</label>
+            <br>
+            <input type="text" placeholder="UserName" name="name"/>
+            <br><br>
+            <label> Password</label>
+            <br>
+            <input type="password" placeholder="password" name="password"/>
+            <br><br>
+            <button type="submit" style="position: absolute; right: 0;"> Login </button>
+        </form>
+        
+    </div>
+</div>
+</body>
+</html>

@@ -25,7 +25,7 @@ public class LoginController : Controller
     [Route("/login")]
     public IActionResult Index()
     {
-        return View();
+        return PartialView("login");
     }
 
     [AllowAnonymous]

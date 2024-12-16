@@ -22,6 +22,8 @@
   <ItemGroup>
     <Folder Include="Controllers\ControlPanel\Forms\" />
     <Folder Include="Controllers\Home\" />
+    <Folder Include="wwwroot\iconsFont\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,56 +1,110 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SpeedDeal</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/iconsStyle.css" asp-append-version="true" />
+    <link rel="stylesheet" href="/iconsFont/css/line-awesome.min.css">
     <script src="~/js/qwery.js"></script>
+
+    @{
+        var mainColor = "bisque";
+        var mainBaclGrounfColor = "#1b2530";
+        var linkActiveColor = "beige";
+    }
+
+    <style>
+        html, body {
+            background-color: @mainBaclGrounfColor;
+            color: @mainColor;
+            width: 100%;
+            height: 99%;
+            margin: 0;
+        }
+        .container {
+            margin: 10px;
+            padding: 10px;
+            border: solid 1px;
+            width: calc(100% - 40px);
+            height: calc(100% - 65px);
+            position: relative;
+        }
+
+        .menu{
+            width: calc(100% - 30px);
+            height: 20px;
+            border: solid 1px;
+            padding: 5px;
+            margin: 0 10px;
+            margin-top: 10px;
+        }
+        .menu-item{
+            font-size: 18px;
+            color: @mainColor;
+            margin-left: 2px;
+            margin-top: 3px;
+        }
+        .menu-item:hover {
+                font-size: 22px;
+                color: @mainColor;
+                margin-left: 0;
+                margin-top: 0;
+        }
+
+        #menu-icon-div {
+            width: 22px;
+            float: right;
+            height: 22px;
+            margin: 0 5px;
+        }
+
+        a:link {
+            color: @mainColor;
+        }
+
+        a:visited {
+            color: @mainColor;
+        }
+
+        a:hover {
+            color: @linkActiveColor;
+        }
+
+        a:active {
+            color: @mainColor;
+        }
+    </style>
 </head>
 
-<style>
-    .body-div {
-        padding: 10px;
-    }
-
-    .goto-main-page {
-        font-size: 16px;
-    }
-</style>
 
 <body>
-    <header>
-        <div class="mian-menu">
-            <div class="main-menu-item">
-                1
+    
+        @if (Context.User.Identity?.IsAuthenticated != null && Context.User.Identity.IsAuthenticated)
+        {
+            <div class="menu">
+                <div id="menu-icon-div">
+                    <a href="/logout" title="Настойки">
+                        <i class="las la-sign-out-alt menu-item"></i>
+                    </a>
+                </div>
+                <div id="menu-icon-div">
+                    <a href="/ControlPanel" title="Настойки">
+                        <i class="las la-cog menu-item"></i>
+                    </a>
+                </div>
             </div>
-            <div class="main-menu-item">
-               2
-            </div>
-            <div class="main-menu-item">
-                3
-            </div>
-            <div class="main-menu-item">
-                4
-            </div>
-            <div class="main-menu-item">
-                5
-            </div>
-        </div>
-        <div class="clear"></div>
-    </header>
+        }
+   
     <div class="container">
-        <main role="main" class="pb-3">
+        @if (Context.User.Identity?.IsAuthenticated != null && Context.User.Identity.IsAuthenticated)
+        {
             @RenderBody()
-        </main>
+        }
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - SpeedDeal - Lomaster
-        </div>
-    </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
