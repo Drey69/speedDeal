@@ -24,9 +24,18 @@ namespace SpeedDeal.Controllers
         {
             var links = new List<ControlPanelPageItem>();
             var user = new User();
-
-            links.Add(new ControlPanelPageItem { Name = "Роли",  Link = "/ControlPanel/Roles"});
-            links.Add(new ControlPanelPageItem { Name = "Клаймы",  Link = "/ControlPanel/Claims"});
+            if(Context.User.IsInRole("admin"))
+            {
+                links.Add(new ControlPanelPageItem 
+                {
+                    Name = "Р РѕР»Рё", 
+                    Link = "/ControlPanel/Roles",
+                    Role = "admin"
+                });
+            }
+            
+            
+            //links.Add(new ControlPanelPageItem { Name = "пїЅпїЅпїЅпїЅпїЅпїЅ",  Link = "/ControlPanel/Claims"});
 
             var model = new ControlPanelViewModel(user, links.OrderBy(l => l.Name).ToList());
             return View(model);
@@ -49,7 +58,7 @@ namespace SpeedDeal.Controllers
 
             if (role == null)
             {
-                return View("Error", new ErrorViewModel { RequestId = "Роль не найдениа" });
+                return View("Error", new ErrorViewModel { RequestId = "пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" });
             }
             return View("/Views/ControlPanel/Roles/RoleEdit.cshtml", role);
         }
@@ -59,14 +68,14 @@ namespace SpeedDeal.Controllers
         {
             if (string.IsNullOrWhiteSpace(roleName))
             {
-                return View("Error", new ErrorViewModel { RequestId = $"Имя роли пустое" });
+                return View("Error", new ErrorViewModel { RequestId = $"пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ" });
             }
 
             if (roleId > 0)
             {
                 var myRole = _context.Roles.FirstOrDefault(r => r.Id == roleId);
                 if (myRole == null) {
-                    return View("Error", new ErrorViewModel { RequestId = $"Роль  {roleId} не найдениа" });
+                    return View("Error", new ErrorViewModel { RequestId = $"пїЅпїЅпїЅпїЅ  {roleId} пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" });
                 }
                 myRole.Name = roleName;
 

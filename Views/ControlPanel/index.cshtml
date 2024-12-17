@@ -14,8 +14,10 @@
     </div>
     <h2> Настройки </h2>
 
+
     @foreach(var link in Model.Menus)
     {
+        if(link)
         <a href="@link.Link"> @link.Name </a>
         <br />
         <br />

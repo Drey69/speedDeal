@@ -9,10 +9,13 @@ namespace SpeedDeal.Controllers.ControlPanel.ViewModels
     {
         public List<ControlPanelPageItem> Menus { get; protected set; }
         public User User { get; protected set; }  
-        public ControlPanelViewModel(User user, List<ControlPanelPageItem> menus)
+        public ControlPanelViewModel(User user,
+         List<ControlPanelPageItem> menus,
+         string roleName)
         {
             User = user;
             Menus = menus;
+            RoleName = roleName;
         }
     }
 
@@ -20,5 +23,6 @@ namespace SpeedDeal.Controllers.ControlPanel.ViewModels
     {
         public string Name { get; set; }
         public string Link { get; set; }
+        public string RoleName {get; set;}
     }
 }
