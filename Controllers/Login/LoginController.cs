@@ -43,7 +43,8 @@ public class LoginController : Controller
             var claims = new List<Claim>
             {
             new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name),
-            new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name)
+            new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name),
+            new Claim("UserId", user.Id.ToString())
     };
             var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);

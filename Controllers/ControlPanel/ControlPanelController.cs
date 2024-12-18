@@ -5,8 +5,16 @@ using NuGet.Protocol;
 using SpeedDeal.Controllers.ControlPanel.ViewModels;
 using SpeedDeal.DbModels;
 using SpeedDeal.Models;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
+using SpeedDeal.Infrastructure;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+
+
 namespace SpeedDeal.Controllers
 {
+    [Authorize]
     public class ControlPanelController : Controller
     {
         private AppDbContext _context;
@@ -24,16 +32,25 @@ namespace SpeedDeal.Controllers
         {
             var links = new List<ControlPanelPageItem>();
             var user = new User();
-            if(Context.User.IsInRole("admin"))
+            if(HttpContext.User.IsInRole("admin"))
             {
                 links.Add(new ControlPanelPageItem 
                 {
                     Name = "Роли", 
-                    Link = "/ControlPanel/Roles",
-                    Role = "admin"
+                    Link = "/ControlPanel/Roles"
                 });
             }
             
+            links.Add(new ControlPanelPageItem 
+            {
+                Name = "Смена пароля", 
+                Link = "/ControlPanel/ChangePassword"
+            });
+            links.Add(new ControlPanelPageItem 
+            {
+                Name = "Смена цветов", 
+                Link = "/ControlPanel/ChangeColors"
+            });
             
             //links.Add(new ControlPanelPageItem { Name = "������",  Link = "/ControlPanel/Claims"});
 
@@ -41,14 +58,64 @@ namespace SpeedDeal.Controllers
             return View(model);
         }
         
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ChangePassword(string name, string aldPassword,
+                    string  newPassword)
+        {
+
+            var userIdStr = HttpContext.User.Claims.First(c => c.Type == "UserId").Value;
+            if(userIdStr == null)
+            {
+                return View("Error", new ErrorViewModel {
+                        RequestId = "Что то пошло нетак claim userId not found"});
+            }
+
+            if(string.IsNullOrWhiteSpace(name) ||
+               string.IsNullOrWhiteSpace(newPassword) ||
+               string.IsNullOrWhiteSpace(aldPassword))
+            {
+                return View("Error", new ErrorViewModel {
+                        RequestId = "Все поля должны быть заполнены"});
+            }
 
 
+            int.TryParse(userIdStr, out var userId);
+
+            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+
+            if(user == null)
+            {
+                 return View("Error", new ErrorViewModel {
+                        RequestId = "прользователь не найден"});
+            }
+            
+            if(!Hasher.IsPaswordOk(aldPassword, user.Password, user.Salt))
+            {
+                return View("Error",
+                 new ErrorViewModel { RequestId = "Не верный старый пароль" });
+            }
+
+            user.Name = name;
+            user.Password = Hasher.HashPaswordBySalt(newPassword, user.Salt);
+
+            _context.SaveChanges();
+
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index","Login");
+        }
+
+        [Authorize(Roles = "admin")]
         public IActionResult Roles() 
         {
             var roles = _context.Roles.ToList();
             return View("/Views/ControlPanel/Roles/Roles.cshtml", roles);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult RoleEdit(int roleId)
         {
@@ -63,6 +130,7 @@ namespace SpeedDeal.Controllers
             return View("/Views/ControlPanel/Roles/RoleEdit.cshtml", role);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult RoleEdit(string roleName, int roleId)
         {
@@ -90,6 +158,7 @@ namespace SpeedDeal.Controllers
             return RedirectToAction("Roles");            
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult RoleCreate()
         {
             var model = new Role();

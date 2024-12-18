@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "name": "C#: <project-name> Debug",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/<relative-path-to-project-folder><project-name>.csproj"
+        },
+        {
+            "name": "C#: SpeedDeal",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/SpeedDeal.csproj",
+            "launchConfigurationId": "TargetFramework=;http"
+        }
+    ]
+}
