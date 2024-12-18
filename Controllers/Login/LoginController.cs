@@ -35,7 +35,7 @@ public class LoginController : Controller
         var user = _context.Users.Include(u => u.Role).FirstOrDefault(u => u.Name == name);
         if(user == null)
         {
-            RedirectToAction("UserNotFound", "Login");
+            return Content($"Не правильное имя пользователя или пароль .");
         }
 
         if(Hasher.IsPaswordOk(password, user.Password, user.Salt))
@@ -52,7 +52,7 @@ public class LoginController : Controller
             return RedirectToAction("index", "Home");
         }
      
-        return RedirectToAction("Login", "Login");
+        return Content($"Не правильное имя пользователя или пароль .");
     }
 
     [Authorize]
