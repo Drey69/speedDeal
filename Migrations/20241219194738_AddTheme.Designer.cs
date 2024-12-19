@@ -11,8 +11,8 @@ using SpeedDeal;
 namespace SpeedDeal.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241215082414_roles")]
-    partial class roles
+    [Migration("20241219194738_AddTheme")]
+    partial class AddTheme
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,7 +76,7 @@ namespace SpeedDeal.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("SpeedDeal.DbModels.Permission", b =>
+            modelBuilder.Entity("SpeedDeal.DbModels.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -86,33 +86,37 @@ namespace SpeedDeal.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("Permisions");
+                    b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("SpeedDeal.DbModels.Role", b =>
+            modelBuilder.Entity("SpeedDeal.DbModels.Theme", b =>
                 {
-                    b.Property<int>("RoleId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("RoleName")
+                    b.Property<string>("BackColor")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("RoleId");
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.ToTable("Roles");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Thems");
                 });
 
             modelBuilder.Entity("SpeedDeal.DbModels.User", b =>
@@ -147,33 +151,26 @@ namespace SpeedDeal.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("SpeedDeal.DbModels.Permission", b =>
+            modelBuilder.Entity("SpeedDeal.DbModels.Theme", b =>
                 {
-                    b.HasOne("SpeedDeal.DbModels.Role", "Role")
-                        .WithMany("Permisions")
-                        .HasForeignKey("RoleId")
+                    b.HasOne("SpeedDeal.DbModels.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Role");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SpeedDeal.DbModels.User", b =>
                 {
                     b.HasOne("SpeedDeal.DbModels.Role", "Role")
-                        .WithMany("Users")
+                        .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("SpeedDeal.DbModels.Role", b =>
-                {
-                    b.Navigation("Permisions");
-
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

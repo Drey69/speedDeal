@@ -10,6 +10,7 @@ namespace SpeedDeal
         public DbSet<User> Users { get; set; }
         public DbSet<Messages> Messages { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Theme> Thems { get; set; }
 
         public AppDbContext()
         {

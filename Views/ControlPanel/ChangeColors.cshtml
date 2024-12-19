@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<div class="parrent">
+    <form asp-action="ChangeColors" method="post">
+        <table>
+            <tr>
+                <td>Цвет фона:</td>
+                <td>
+                    <input type="color" name="backColor"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Цвет:</td>
+                <td>
+                    <input type="color" name="color"/>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button type="submit"> Сохранить </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

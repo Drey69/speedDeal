@@ -57,7 +57,39 @@ namespace SpeedDeal.Controllers
             var model = new ControlPanelViewModel(user, links.OrderBy(l => l.Name).ToList());
             return View(model);
         }
-        
+
+        public IActionResult ChangeColors()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ChangeColors(string backColor, string color)
+        {
+            int.TryParse(HttpContext.User.Claims.First(u => u.Type == "UserId").Value, out var userId);
+
+            var theme = _context.Thems.FirstOrDefault(t => t.UserId == userId);
+
+            if(theme == null)
+            {
+                _context.Thems.Add(new Theme
+                {
+                    Name = "new",
+                    Color = color,
+                    BackColor = backColor,
+                    UserId = userId
+                });
+            }
+            else
+            {
+                theme.Color = color;
+                theme.BackColor = backColor;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
         public IActionResult ChangePassword()
         {
             return View();
