@@ -39,6 +39,11 @@ namespace SpeedDeal.Controllers
                     Name = "Роли", 
                     Link = "/ControlPanel/Roles"
                 });
+                links.Add(new ControlPanelPageItem
+                {
+                    Name = "Пользователи",
+                    Link = "/ControlPanel/Users"
+                });
             }
             
             links.Add(new ControlPanelPageItem 
@@ -52,7 +57,6 @@ namespace SpeedDeal.Controllers
                 Link = "/ControlPanel/ChangeColors"
             });
             
-            //links.Add(new ControlPanelPageItem { Name = "������",  Link = "/ControlPanel/Claims"});
 
             var model = new ControlPanelViewModel(user, links.OrderBy(l => l.Name).ToList());
             return View(model);
@@ -60,7 +64,17 @@ namespace SpeedDeal.Controllers
 
         public IActionResult ChangeColors()
         {
-            return View();
+            var user = HttpContext.Items["CurrentUser"] as User;
+            Theme theme;
+            if (user == null)
+            {
+                theme = new Theme { Color = "Black", BackColor = "white" };
+            }
+            else
+            {
+                theme = user.Theme;
+            }
+            return View(theme);
         }
         [HttpPost]
         public IActionResult ChangeColors(string backColor, string color)
@@ -195,6 +209,11 @@ namespace SpeedDeal.Controllers
         {
             var model = new Role();
             return View("/Views/ControlPanel/Roles/RoleEdit.cshtml", model);
+        }
+
+        [Authorize(Roles = "admin")]
+        public IActionResult Users() {
+            return View("/Views/ControlPanel/Users/Users.cshtml", _context.Users.Include(u => u.Role).ToList());
         }
     }
 }

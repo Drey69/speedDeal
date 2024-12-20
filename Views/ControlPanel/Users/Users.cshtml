@@ -1,0 +1,35 @@
+﻿@using SpeedDeal.DbModels
+@model List<User>
+@{
+    Layout = "_Layout";
+    ViewBag.Tittle = "Users";
+}
+<style>
+    .usres-list {
+        height 95%;
+        overflow-y: auto;
+    }
+</style>
+
+<div class="goto-main-page">
+    <a href="/ControlPanel"><i class="las la-backward"></i> Настройки </a>
+    <br />
+</div>
+
+<div class="parrent">
+    <div class="usres-list">
+        <h2> Users </h2>
+        @foreach(var usersGroup in Model.GroupBy(u => u.Role.Name))
+        {
+            <span>
+                @usersGroup.Key
+            </span>
+            foreach (var user in usersGroup.Value)
+            {
+                <div class="single-user">
+                    <a href="EdirUser?userId=@user.Id"> @user.name</a>
+                </div>
+            }
+        }
+    </div>
+</div>

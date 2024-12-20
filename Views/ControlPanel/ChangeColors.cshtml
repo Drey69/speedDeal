@@ -1,4 +1,5 @@
-﻿@{
+﻿@model SpeedDeal.DbModels.Theme;
+@{
     Layout = "_Layout";
 }
 
@@ -8,13 +9,13 @@
             <tr>
                 <td>Цвет фона:</td>
                 <td>
-                    <input type="color" name="backColor"/>
+                    <input type="color" asp-for="BackColor" oninput="changeBackColor()"/>
                 </td>
             </tr>
             <tr>
                 <td>Цвет:</td>
                 <td>
-                    <input type="color" name="color"/>
+                    <input type="color" asp-for="Color" oninput="changeColor()" />
                 </td>
             </tr>
             <tr>
@@ -26,3 +27,14 @@
         </table>
     </form>
 </div>
+<script>
+
+    function changeBackColor() {
+        document.querySelector("body").style.backgroundColor = document.querySelector("#BackColor").value;
+    }
+
+    function changeColor() {
+        document.querySelector("body").style.color= document.querySelector("#Color").value;
+    }
+
+</script>

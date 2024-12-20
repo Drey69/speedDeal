@@ -10,5 +10,6 @@
         public byte[] Salt { get; set; } = new byte[0];
 
         public Role Role { get; set; } = new Role();
+        public Theme Theme { get; set; } = new Theme { Color = "black", BackColor = "white" };
     }
 }

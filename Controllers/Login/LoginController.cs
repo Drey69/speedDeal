@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using SpeedDeal.Infrastructure;
 using System.Runtime.InteropServices;
 using System;
+using SpeedDeal.DbModels;
+using SpeedDeal.Services;
 
 
 namespace SpeedDeal.Controllers.Login;

@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using SpeedDeal.Infrastructure;
 using Microsoft.Extensions.Options;
+using SpeedDeal.Services;
+using Microsoft.AspNetCore.Mvc;
+using static NuGet.Packaging.PackagingConstants;
 
 
 namespace SpeedDeal
@@ -38,10 +41,15 @@ namespace SpeedDeal
                 dbContext.SaveChanges();
             }
 
+           // var useerCash = new UserCash(dbContext.Users.Include(u => u.Theme).Include(u => u.Role).ToList());
+
             builder.Configuration.AddJsonFile("appsettings.json");
             builder.Services.AddSingleton(config);
-             builder.Services.AddSingleton(dbContext);
+            builder.Services.AddSingleton(dbContext);
+            builder.Services.AddScoped<LoadUserFilter>();
 
+
+         //   builder.Services.AddSingleton(useerCash);
 
             builder.Services
                 .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -52,6 +60,11 @@ namespace SpeedDeal
                 });
 
             builder.Services.AddAuthorization();
+
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add<LoadUserFilter>();
+            });
 
             var app = builder.Build();
 
@@ -70,11 +83,12 @@ namespace SpeedDeal
 
             app.MapDefaultControllerRoute();
 
-         //   app.MapControllerRoute(
-         //       name: "default",
-           //     pattern: "{controller=Home}/{action=Index}/{id?}");
-        
-            
+          
+            //   app.MapControllerRoute(
+            //       name: "default",
+            //     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
             app.Run();
         }
     }
