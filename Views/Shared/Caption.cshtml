@@ -1,0 +1,19 @@
+﻿@model CaptionModel
+
+<style>
+    .page-link-back{
+        float: left;
+        position: absolute;
+        left: 0;
+    }
+</style>
+<div style="text-align: center; position: relative">
+    <div>
+        <a class="page-link-back" href="/@Model.ControllerName/@Model.ActionName"><i class="las la-backward"></i> @Model.LinkName </a>
+    </div>
+        
+    <div>
+        <h2>@Model.Caption</h2>
+    </div>
+
+</div>

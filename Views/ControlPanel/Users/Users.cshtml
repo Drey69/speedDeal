@@ -11,14 +11,10 @@
     }
 </style>
 
-<div class="goto-main-page">
-    <a href="/ControlPanel"><i class="las la-backward"></i> Настройки </a>
-    <br />
-</div>
+@Html.Partial("Caption", new CaptionModel{LinkName = "Настройки", Caption = "Пользователи", ActionName = "Index", ControllerName = "ControlPanel"})
 
 <div class="parrent">
     <div class="usres-list">
-        <h2> Users </h2>
         @foreach(var user in Model)
         {
             <div class="single-user">

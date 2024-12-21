@@ -5,21 +5,13 @@
     Layout = "_Layout";
 }
 
+@Html.Partial("Caption", new CaptionModel{LinkName = "На главную", Caption = "Настройки", ActionName = "Index", ControllerName = "Home"})
 
-
-<div class="body-div">
-    <div class="goto-main-page">
-        <a href="/" > На главную</a>
-        <br />
-    </div>
-    <h2> Настройки </h2>
-
-
-    @foreach(var link in Model.Menus)
+<div class="parrent">
+    @foreach (var link in Model.Menus)
     {
         <a href="@link.Link"> @link.Name </a>
-        <br />
-        <br />
+        <br/>
+        <br/>
     }
-
 </div>

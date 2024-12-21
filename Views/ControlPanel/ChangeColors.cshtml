@@ -2,6 +2,13 @@
 @{
     Layout = "_Layout";
 }
+<style>
+    form{
+    display: inline-block;
+    }
+</style>
+
+@Html.Partial("Caption", new CaptionModel{LinkName = "Настройки", Caption = "Цвета", ActionName = "Index", ControllerName = "ControlPanel"})
 
 <div class="parrent">
     <form asp-action="ChangeColors" method="post">
@@ -19,8 +26,7 @@
                 </td>
             </tr>
             <tr>
-                <td></td>
-                <td>
+                <td colspan="2" style="text-align: center">
                     <button type="submit"> Сохранить </button>
                 </td>
             </tr>

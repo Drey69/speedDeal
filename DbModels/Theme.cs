@@ -7,6 +7,6 @@ namespace SpeedDeal.DbModels
         public string Name { get; set; } = "";
         public string BackColor {get; set;} = "";
         public string Color {get; set;} = "";
-        public User User {get; set;}
+        public User User { get; set; }
     }
 }
