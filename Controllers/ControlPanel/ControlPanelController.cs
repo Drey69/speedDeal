@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Authorization;
 using SpeedDeal.Infrastructure;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using SpeedDeal.Controllers.Forms;
 
 
 namespace SpeedDeal.Controllers
@@ -61,7 +63,7 @@ namespace SpeedDeal.Controllers
             var model = new ControlPanelViewModel(user, links.OrderBy(l => l.Name).ToList());
             return View(model);
         }
-
+        
         public IActionResult ChangeColors()
         {
             var user = HttpContext.Items["CurrentUser"] as User;
@@ -212,8 +214,122 @@ namespace SpeedDeal.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public IActionResult Users() {
+        public IActionResult Users()
+        {
             return View("/Views/ControlPanel/Users/Users.cshtml", _context.Users.Include(u => u.Role).ToList());
+        }
+
+        [Authorize(Roles = "admin")]
+        public IActionResult AddUser()
+        {
+            var roles = _context.Roles.Select(m => new SelectListItem
+            {
+                Value = m.Id.ToString(),
+                Text = m.Name
+            }).ToList();
+            var model = new UserEditViewModel { RolesList = roles, User = new User() };
+            
+            return View("/Views/ControlPanel/Users/EditUser.cshtml",model);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public IActionResult EditUser(EditUserForm form)
+        {
+            if (form.Id == 0)
+            {
+                var newUser = new User
+                {
+                    Name = form.Name,
+                    Email = "",
+                    Password = Hasher.HashPasword(form.Password, out var salt),
+                    Salt = salt,
+                    RoleId = form.RoleId,
+                    Theme = new Theme
+                    {
+                        Color = form.Color,
+                        BackColor = form.BackColor
+                    }
+                };
+
+                _context.Users.Add(newUser);
+                _context.SaveChanges();
+                
+                return RedirectToAction("Users");
+            }
+
+            var user = _context.Users
+                .Include(u => u.Theme)
+                .FirstOrDefault(u => u.Id == form.Id);
+
+            if (user == null)
+            {
+                return View("Error", new ErrorViewModel { RequestId = $"Пользователь не найден" });
+            }
+
+            if (!string.IsNullOrWhiteSpace(form.Name))
+            {
+                user.Name = form.Name;
+            }
+
+            if (!string.IsNullOrWhiteSpace(form.Password))
+            {
+                user.Password = Hasher.HashPasword(form.Password, out var salt);
+                user.Salt = salt;
+            }
+
+            user.RoleId = form.RoleId;
+            user.Theme.Color = form.Color;
+            user.Theme.BackColor = form.BackColor;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Users");
+        }
+
+        [Authorize(Roles = "admin")]
+        public IActionResult EditUser(int userId)
+        {
+            var user = _context.Users
+                .Include(u => u.Theme)
+                .SingleOrDefault(u => u.Id == userId);
+            if (user == null)
+            {
+                return View("Error", new ErrorViewModel { RequestId = $"Пользователь {userId} не найден" });
+            }
+
+            var roles = _context.Roles.Select(m => new SelectListItem
+            {
+                Value = m.Id.ToString(),
+                Text = m.Name,
+                Selected = m.Id == userId
+            }).ToList();
+            var model = new UserEditViewModel { RolesList = roles, User = user };
+
+            return View("/Views/ControlPanel/Users/EditUser.cshtml",model);
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

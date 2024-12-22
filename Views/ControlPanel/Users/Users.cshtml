@@ -18,8 +18,11 @@
         @foreach(var user in Model)
         {
             <div class="single-user">
-                <a href="EdirUser?userId=@user.Id"> @user.Name</a> @user.Role.Name
+                <a href="EditUser?userId=@user.Id"> @user.Name</a> @user.Role.Name
             </div>
         }
+        <br/>
+        <br/>
+        <button type="button" onclick="window.location.href='/ControlPanel/AddUser'">Добавить пользователя</button>
     </div>
 </div>

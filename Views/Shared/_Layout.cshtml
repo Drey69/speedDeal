@@ -87,6 +87,12 @@
             height: 100%;
             text-align: center;
         }
+        .fl-left{
+            float: left;
+        }
+        .clear{
+            clear: both;
+        }
     </style>
 </head>
 
@@ -96,6 +102,9 @@
         @if (Context.User.Identity?.IsAuthenticated != null && Context.User.Identity.IsAuthenticated)
         {
             <div class="menu">
+                <div class="menu-user fl-left">
+                    @Context.User.Identity?.Name
+                </div>
                 <div id="menu-icon-div">
                     <a href="/logout" title="Настойки">
                         <i class="las la-sign-out-alt menu-item"></i>

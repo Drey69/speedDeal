@@ -1,13 +1,44 @@
-﻿@model SpeedDeal.DbModels.User
+﻿@model SpeedDeal.Controllers.ControlPanel.ViewModels.UserEditViewModel
 
 @{
     ViewBag.Title = "Редакирование пользователя";
     Layout = "_Layout";
 }
 
-<h2>Редактирование пользователя</h2>
 
-<div class="goto-page">
-    <a href="/ControlPanel"> <i class="las la-backward"></i> Настройки </a>
-    <br />
+@Html.Partial("Caption", new CaptionModel{LinkName = "Пользователи", Caption = "Редактирование пользователя", ActionName = "Users", ControllerName = "ControlPanel"})
+
+<div class="parrent">
+    <form asp-controller="ControlPanel" asp-action="EditUser" method="post">
+        @Html.Hidden("Id", Model.User.Id)
+        @Html.TextBox("Name", Model.User.Name)
+        <br/>
+        <br/>
+        @Html.Password("Password")
+        <br/>
+        <br/>
+        Роль:
+        <br/>
+        @Html.DropDownList("RoleId", Model.RolesList)
+        <br/>
+        <br/>
+        Цветовая тема:
+        <br/>
+        <input type="color" name="BackColor" id="BackColor" value="@Model.User.Theme.BackColor" oninput="changeBackColor()"/>
+        &nbsp;
+        <input type="color" name="Color" id="Color" value="@Model.User.Theme.Color" oninput="changeColor()"/>
+        <br/>
+        <br/>
+        <button type="submit">Сохранить</button>
+    </form>
 </div>
+
+<script>
+    function changeBackColor() {
+        document.querySelector("body").style.backgroundColor = document.querySelector("#BackColor").value;
+    }
+
+    function changeColor() {
+        document.querySelector("body").style.color= document.querySelector("#Color").value;
+    }
+</script>
