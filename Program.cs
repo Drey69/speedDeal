@@ -19,6 +19,7 @@ namespace SpeedDeal
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSignalR();
 
             var dbContext = new AppDbContext();
             IConfiguration config = new ConfigurationBuilder()
@@ -40,16 +41,12 @@ namespace SpeedDeal
                 }); 
                 dbContext.SaveChanges();
             }
-
-           // var useerCash = new UserCash(dbContext.Users.Include(u => u.Theme).Include(u => u.Role).ToList());
-
+            
             builder.Configuration.AddJsonFile("appsettings.json");
             builder.Services.AddSingleton(config);
             builder.Services.AddSingleton(dbContext);
+            builder.Services.AddSingleton(new Chat());
             builder.Services.AddScoped<LoadUserFilter>();
-
-
-         //   builder.Services.AddSingleton(useerCash);
 
             builder.Services
                 .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -67,10 +64,8 @@ namespace SpeedDeal
             });
 
             var app = builder.Build();
+  
 
-   
-
-            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -82,7 +77,7 @@ namespace SpeedDeal
             app.UseAuthorization();
 
             app.MapDefaultControllerRoute();
-
+            app.MapHub<ChatHub>("/chats");
           
             //   app.MapControllerRoute(
             //       name: "default",
