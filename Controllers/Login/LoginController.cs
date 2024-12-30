@@ -29,7 +29,8 @@ public class LoginController : Controller
     {
         return PartialView("login");
     }
-
+    
+    
     [AllowAnonymous]
     [HttpPost]
     public async Task<IActionResult> Login(string? returnUrl, string name, string password)

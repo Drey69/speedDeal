@@ -5,7 +5,7 @@ using SpeedDeal.Services;
 
 namespace SpeedDeal.Controllers.chat;
 
-[Authorize]
+
 public class ChatController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -20,6 +20,9 @@ public class ChatController : Controller
         _chatHub = chatHub;
     }
 
+
+    
+    
     public IActionResult Index()
     {
         var r = _chatHub;
@@ -28,12 +31,8 @@ public class ChatController : Controller
         return View();
     }
 
-    public string test(string s)
-    {
-        Console.WriteLine(s);
-        return s;
-    }
-    public async Task<IActionResult> Send (string message)
+    [HttpPost]
+    public async Task<IActionResult> Send ([FromQuery]string message)
     {
         var userName = HttpContext.User.Identity?.Name ?? "_user_";
         await _chatHub.Clients.All.SendAsync("Receive", $"{userName}: {message}");

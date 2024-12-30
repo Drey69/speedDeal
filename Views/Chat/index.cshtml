@@ -19,7 +19,11 @@
            document.getElementById("sendBtn").addEventListener("click", function () {
                let message = document.getElementById("message").value;
                let url = `/Chat/Send?message=${message}`;
-               fetch(url)
+               fetch(url,{
+                   method: "POST",
+                   headers: { 'Content-Type': 'application/json' },
+                   body: JSON.stringify({'message': message}) 
+               })
                .then(response => response.text())
                .then(text => {
                    console.log(text);
