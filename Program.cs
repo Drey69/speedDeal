@@ -47,6 +47,7 @@ namespace SpeedDeal
             builder.Services.AddSingleton(dbContext);
             builder.Services.AddSingleton(new Chat());
             builder.Services.AddScoped<LoadUserFilter>();
+            builder.Services.AddSingleton<ChatHub>();
 
             builder.Services
                 .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

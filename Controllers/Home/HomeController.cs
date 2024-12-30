@@ -18,7 +18,6 @@ namespace SpeedDeal.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration _configuration;
         private AppDbContext _dbContext;
-        private User? _currentUser = null;
         public HomeController(ILogger<HomeController> logger,
                  AppDbContext context, IConfiguration configuration)
         {
